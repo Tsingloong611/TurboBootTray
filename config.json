@@ -1,0 +1,19 @@
+{
+  "programs": [
+    {
+      "name": "Clash Verge",
+      "path": "D:\\Program Files\\Clash Verge\\clash-verge.exe",
+      "trigger": "boot", // ��������׶�
+      "delay": 0, // ��Ըý׶ε��ӳ�(ms)
+      "watch": true // �Ƿ��ػ�
+    },
+    {
+      "name": "TranslucentTB",
+      "path": "D:\\Program Files\\TranslucentTB-portable-x64\\TranslucentTB.exe",
+      "trigger": "post_boot", // explorer ���֮���ӳ����
+      "delay": 1000,
+      "watch": false
+    }
+  ],
+  "logFile": "%USERPROFILE%\\TurboBootTray.log"
+}

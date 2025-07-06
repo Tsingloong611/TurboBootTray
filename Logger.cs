@@ -1,14 +1,27 @@
-﻿using System;
+﻿// Logger.cs
+using System;
 using System.IO;
 
 namespace TurboBootTray
 {
-    internal static class Logger
+    public static class Logger
     {
+        private static string logPath = "";
+
+        public static void Init(string path)
+        {
+            logPath = Environment.ExpandEnvironmentVariables(path);
+
+            var dir = Path.GetDirectoryName(logPath);
+            if (!string.IsNullOrEmpty(dir))
+                Directory.CreateDirectory(dir);
+        }
+
+
         public static void Log(string msg)
         {
-            string fullMsg = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {msg}{Environment.NewLine}";
-            File.AppendAllText(Config.LogFile, fullMsg);
+            string line = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {msg}";
+            File.AppendAllText(logPath, line + Environment.NewLine);
         }
     }
 }
