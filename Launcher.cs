@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Management;
 
 namespace TurboBootTray
 {
@@ -43,5 +44,26 @@ namespace TurboBootTray
                 Logger.Log($"❌ 启动 {name} 失败：{ex.Message}");
             }
         }
+
+        public static bool IsRunning(string path)
+        {
+            try
+            {
+                string fullPath = Path.GetFullPath(path);
+                string query = $"SELECT ProcessId FROM Win32_Process WHERE ExecutablePath = '{fullPath.Replace("\\", "\\\\")}'";
+
+                using (var searcher = new ManagementObjectSearcher(query))
+                using (var results = searcher.Get())
+                {
+                    return results.Count > 0;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
     }
 }

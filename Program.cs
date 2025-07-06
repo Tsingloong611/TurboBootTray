@@ -36,7 +36,7 @@ namespace TurboBootTray
             TaskScheduler.LaunchTasks(postBootTasks);
 
             Logger.Log("启动完毕，初始化打盘图标...");
-            RunTrayIcon();
+            TrayIcon.Run(config);
         }
 
         static void WaitForExplorer()
@@ -45,31 +45,6 @@ namespace TurboBootTray
             while (Process.GetProcessesByName("explorer").Length == 0)
                 Thread.Sleep(1000);
             Logger.Log("explorer.exe 已加载");
-        }
-
-        static void RunTrayIcon()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            NotifyIcon tray = new NotifyIcon
-            {
-                Text = "TurboBootTray 正在运行",
-                Icon = SystemIcons.Application,
-                Visible = true,
-                ContextMenuStrip = new ContextMenuStrip()
-            };
-
-            var exitItem = new ToolStripMenuItem("退出");
-            exitItem.Click += (s, e) =>
-            {
-                Logger.Log("用户点击退出，程序关闭");
-                tray.Visible = false;
-                Application.Exit();
-            };
-
-            tray.ContextMenuStrip.Items.Add(exitItem);
-            Application.Run();
         }
     }
 }

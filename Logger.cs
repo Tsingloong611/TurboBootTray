@@ -7,10 +7,12 @@ namespace TurboBootTray
     public static class Logger
     {
         private static string logPath = "";
+        public static string CurrentLogPath { get; private set; }
 
         public static void Init(string path)
         {
             logPath = Environment.ExpandEnvironmentVariables(path);
+            CurrentLogPath = logPath;
 
             var dir = Path.GetDirectoryName(logPath);
             if (!string.IsNullOrEmpty(dir))
